@@ -1,11 +1,10 @@
 from fastapi import FastAPI, Response, HTTPException
 from starlette.requests import Request
 import os
-import uvicorn
 import subprocess
 
-ttl_path: str = "ttl"
-html_path: str = "html"
+ttl_path: str = os.environ.get("TTL_PATH", "ttl")
+html_path: str = os.environ.get("HTML_PATH", "html")
 app = FastAPI()
 
 
