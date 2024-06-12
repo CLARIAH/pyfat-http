@@ -7,4 +7,10 @@ services:
         - "traefik.enable=true"
         - "traefik.http.routers.pyfat-http.rule=Host(`pyfat-http.dev.clariah.nl`)"
         - "traefik.http.routers.pyfat-http.entrypoints=http"
-        - "traefik.http.services.pyfat-http.loadbalancer.server.port=80"
+        - "traefik.http.services.pyfat-http.loadbalancer.server.port=8000"
+    networks:
+        - traefik-public
+
+networks:
+  traefik-public:
+    external: true
