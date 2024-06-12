@@ -1,6 +1,6 @@
 services:
   web:
-    image: pyfat-http:latest
+    image: registry.diginfra.net/tsd/pyfat-http:latest
     hostname: pyfat-http
     container_name: pyfat-http
     labels:
