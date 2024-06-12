@@ -34,7 +34,16 @@ async def get_record(request: Request, record_id: str):
 @app.get("/html/{record_id}")
 async def get_html_record(record_id: str):
     html_record_full_path: str = os.path.join(html_path, f"{record_id}.xml")
-    if os.path.exists(html_record_full_path) and os.path.isfile(html_record_full_path):
+    ttl_record_full_path: str = os.path.join(ttl_path, f"{record_id}.ttl")
+    trix_full_path: str = "trix/test.trix"
+    if os.path.isfile(html_record_full_path):
+        with open(html_record_full_path, "r") as file:
+            return Response(content=file.read(), media_type='text/html')
+    elif os.path.isfile(ttl_record_full_path):
+        # Convert TTL to Trix to a fixed file
+        subprocess.run(["./rdfconvert.sh", "-i", "Turtle", "-o", "Trix", ttl_record_full_path, trix_full_path])
+        # Convert Trix to HTML(XML)
+        subprocess.run(["./xsl.sh", "-xsl:FATtoHTML.xsl", f"-s:{trix_full_path}", f"-o:{html_record_full_path}"])
         with open(html_record_full_path, "r") as file:
             return Response(content=file.read(), media_type='text/html')
     else:
