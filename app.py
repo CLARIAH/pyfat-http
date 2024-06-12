@@ -40,9 +40,9 @@ async def get_html_record(record_id: str):
             return Response(content=file.read(), media_type='text/html')
     elif os.path.isfile(ttl_record_full_path):
         # Convert TTL to Trix to a fixed file
-        subprocess.run(["./rdfconvert.sh", "-i", "Turtle", "-o", "Trix", ttl_record_full_path, trix_full_path])
+        subprocess.run(["/bin/sh", "/app/rdfconvert.sh", "-i", "Turtle", "-o", "Trix", ttl_record_full_path, trix_full_path])
         # Convert Trix to HTML(XML)
-        subprocess.run(["./xsl.sh", "-xsl:FATtoHTML.xsl", f"-s:{trix_full_path}", f"-o:{html_record_full_path}"])
+        subprocess.run(["/bin/sh", "/app/xsl.sh", "-xsl:FATtoHTML.xsl", f"-s:{trix_full_path}", f"-o:{html_record_full_path}"])
         with open(html_record_full_path, "r") as file:
             return Response(content=file.read(), media_type='text/html')
     else:
