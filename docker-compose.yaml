@@ -3,6 +3,9 @@ services:
     image: registry.diginfra.net/tsd/pyfat-http:latest
     hostname: pyfat-http
     container_name: pyfat-http
+    environment:
+      - TTL_PATH=/srv/vlo-data/ttl
+      - HTML_PATH=/srv/vlo-data/html
     labels:
         - "traefik.enable=true"
         - "traefik.http.routers.pyfat-http.rule=Host(`pyfat-http.datasets.dev.clariah.nl`)"
