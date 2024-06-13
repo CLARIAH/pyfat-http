@@ -1,0 +1,16 @@
+services:
+  web:
+    image: registry.diginfra.net/tsd/pyfat-http:latest
+    hostname: pyfat-http
+    container_name: pyfat-http
+    environment:
+      - TTL_PATH=/srv/vlo-data/ttl
+      - HTML_PATH=/srv/vlo-data/html
+    ports:
+      - "38000:8000"
+    volumes:
+      - harvest-data-prod:/srv/vlo-data
+
+volumes:
+    harvest-data-prod:
+      external: True
