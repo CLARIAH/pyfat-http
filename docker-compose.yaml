@@ -1,6 +1,7 @@
 services:
   web:
     image: registry.diginfra.net/tsd/pyfat-http:latest
+    restart: unless-stopped
     hostname: pyfat-http
     container_name: pyfat-http
     environment:
